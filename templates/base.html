@@ -15,35 +15,46 @@
     <link rel="stylesheet" href="{% static 'base.css' %}">
   </head>
   <body>
-    <section class="py-5 header text-center">
-        <div class="container py-5 text-white">
-            <header class="py-5">
-                <h1 class="display-4 logo">Bootstrap sticky navbar</h1>
-                <p class="font-italic mb-1">Create a sticky top navbar using Bootstrap 4 utility classes.</p>
-                <p class="font-italic">Snippet by
-                    <a class="text-white" href="https://bootstrapious.com/">
-                        <u>Bootstrapious</u>
-                    </a>
-                </p>
-            </header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark m-4 opacity-75">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Menu</a>
+                </li>
+            </ul>
         </div>
-    </section>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#">Wirsens</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{ user.username }}</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+                    </li>
+                {% endif %}
 
-    <header class="header sticky-top">
-        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
-            <div class="container"><a class="navbar-brand" href="#">
-                <strong class="h6 mb-0 font-weight-bold text-uppercase">Sticky navbar</strong></a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-                        <li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
+            
+            </ul>
+        </div>
+    </nav>
+    
+    
+
+
 
       {% block content %}
 

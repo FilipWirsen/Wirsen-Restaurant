@@ -5,5 +5,6 @@ app_name = 'restaurant'
 
 urlpatterns = [
     path('createuser', views.createUser, name='createuser'),
-    path('signup', views.signup, name='signup')
+    path('signup', views.signup, name='signup'),
+    path('login', views.login, name='login'),
 ]
