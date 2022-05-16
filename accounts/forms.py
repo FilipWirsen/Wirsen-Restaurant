@@ -19,9 +19,3 @@ class SignUpForm(UserCreationForm):
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['class'] = 'form-control'
-
-    def clean_recipients(self):
-        user = Profile.objects.create
-        email = self.cleaned_data['email']
-        user.email = email
-        user.save()

@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+import datetime
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -6,7 +8,28 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=25)
     email = models.EmailField(max_length=25, unique=True)
 
     def __str__(self):
-        return f"{self.user}"
+        return f"{self.user} {self.name}"
+
+
+class Table(models.Model):
+    TableID = models.AutoField(primary_key=True)
+    table_size = models.IntegerField()
+
+
+class Reservation(models.Model):
+    reservationID = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    book_date = models.DateField(default=timezone.now)
+    Times = [
+        ('17:30', '17:30'),
+        ('17:45', '17:45'),
+    ]
+    book_time = models.CharField(
+        max_length=5,
+        choices=Times,
+    )
