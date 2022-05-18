@@ -8,12 +8,56 @@
       <div class="col-md-6 mx-auto">
         <h1 class="text-center">Book a Table</h1>
         {% csrf_token %}
-        {{ form|crispy }}
-        <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary mt-3">Book</button>
+        <div class="mb-3">
+          <label for="party_size" class="form-label"><P>Number of Guests</P></label>
+          <input type="number" name="party_size" class="form-control" id="exampleInputPassword1">
         </div>
+        <div class="mb-3">
+          <label for="book_date" class="form-label"><P>Date</P></label>
+          <input type="date" name="book_date" class="form-control" id="exampleInputPassword1">
+        </div>
+        <div class="d-flex justify-content-center">
+          <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Choose Time</button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Availible Times</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <label for="id_book_time" class=" requiredField">
+                  Book time<span class="asteriskField">*</span> </label>
+                  <select name="book_time" class="select form-control" required="" id="id_book_time"> <option value="" selected="">---------</option> <option value="17:30">17:30</option> <option value="17:45">17:45</option> <option value="18:00">18:00</option> <option value="18:15">18:15</option>
+                  </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary mt-3">Book</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-  </form>
+  </div>
+</form>
+
+<script>CheckAvailibility = (e) => {
+  this.setState( {[e.target.name]: e.target.value} )
+  console.log(e.target.value)  
+}
+</script>
+<script>
+  var myModal = document.getElementById('myModal')
+  var myInput = document.getElementById('myInput')
+
+  myModal.addEventListener('shown.bs.modal', function () {
+    myInput.focus()
+  })
+</script>
 
 {% endblock %}

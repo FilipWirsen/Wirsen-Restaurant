@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Reservation{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<form method="POST">
+    <div class="container bg-light mt-5 bg-opacity-50">
+      <div class="col-md-6 mx-auto">
+        <h1 class="text-center">Choose a Time</h1>
+        {% csrf_token %}
+        {% for field in form %}
+        {{ field }}
+        {% endfor %}
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary mt-3">Book</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+{% endblock %}

@@ -34,4 +34,5 @@ class Reservation(models.Model):
     book_time = models.CharField(
         max_length=5,
         choices=Times,
+        blank=True
     )
