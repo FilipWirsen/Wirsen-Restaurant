@@ -21,11 +21,10 @@ class Table(models.Model):
 
 
 class Reservation(models.Model):
-    reservationID = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
     party_size = models.IntegerField()
     book_date = models.DateField(default=timezone.now)
-    Times = [
+    TIMES = [
         ('17:30', '17:30'),
         ('17:45', '17:45'),
         ('18:00', '18:00'),
@@ -33,6 +32,7 @@ class Reservation(models.Model):
     ]
     book_time = models.CharField(
         max_length=5,
-        choices=Times,
+        choices=TIMES,
         blank=True
     )
+

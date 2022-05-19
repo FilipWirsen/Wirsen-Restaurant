@@ -1,15 +1,6 @@
 {% extends 'base.html' %}
 {% block content %} 
 <h1 id="test">Hi!</h1>
-{% for booking in reservation %}
-    <ul>
-        <li>
-            <p>Name: {{ booking.user }}</p>
-            <p>Party Size: {{ booking.party_size }}</p>
-            <p>Date: {{ booking.book_date }}</p>
-            <p>Time: {{ booking.book_time }}</p>
-        </li>
-    </ul>
-{% endfor  %}
+
 {% endblock %}
 
