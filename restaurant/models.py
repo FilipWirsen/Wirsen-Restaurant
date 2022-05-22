@@ -18,11 +18,16 @@ class Profile(models.Model):
 class Table(models.Model):
     TableID = models.AutoField(primary_key=True)
     table_size = models.IntegerField()
+    booked = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.table_size}"
 
 
 class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     party_size = models.IntegerField()
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
     book_date = models.DateField(default=timezone.now)
     TIMES = [
         ('17:30', '17:30'),

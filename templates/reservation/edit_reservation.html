@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Reservation{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <div class="col-md-12">
+        {{ reservation.party_size }}
+        {{ reservation.book_date }}
+        {{ reservation.book_time }}
+    </div>
+    <a href=""></a>
+</div>
+{% endblock %}
