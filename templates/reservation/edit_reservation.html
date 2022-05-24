@@ -5,9 +5,11 @@
 
 <div class="container">
     <div class="col-md-12">
+        {% for reservation in reservations %}
         {{ reservation.party_size }}
         {{ reservation.book_date }}
         {{ reservation.book_time }}
+        {% endfor %}
     </div>
     <a href=""></a>
 </div>
