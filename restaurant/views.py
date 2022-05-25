@@ -26,33 +26,35 @@ def reserve_table(request):
             post.size = data['party_size']
             post.date = data['book_date']
             post.time = data['book_time']
-            post.end_time = post.time + 8
+            time = int(data['book_time'])
+            post.end_time = time + 8
             get_date = Reservation.objects.filter(book_date=post.date)
-            get_relevant_bookings = get_date.filter(book_time__range=(post.time, post.end_time))
-            number_of_bookings_before = get_relevant_bookings.count()
+            bookings_before = time - 7
+            bookings_after = time + 7
+            get_bookings_before = get_date.filter(
+                book_time__range=(bookings_before, time))
+            get_bookings_after = get_date.filter(
+                book_time__range=(time, bookings_after))
             if post.size <= 2:
-                if number_of_bookings_before >= 5:
+                if get_bookings_before.count() >= 5 or get_bookings_after.count() >= 5 and get_bookings_after.count() + get_bookings_before.count() <= 9:
                     return HttpResponse("Time not avaibile xd")
-                elif number_of_bookings_before < 5:
+                else:
+                    tables = Table.objects.filter(table_size=2)
+                    for table in tables:
+                        if not Reservation.objects.filter(book_date=post.date, book_time__range=(get_bookings_before.count(), get_bookings_after.count())   ,table=table).exists():
+                            post.table = table
+                    # table = Table.objects.filter(table_size=2).first()
+                    post.save()
+                    return HttpResponse(f"Booked Bookings before: {get_bookings_before.count()} Bookings After: {get_bookings_after.count()} Time: {time}")
+
+            elif post.size >= 4:
+                if get_bookings_before.count() >= 5 or get_bookings_after.count() >= 5 and get_bookings_after.count() + get_bookings_before.count() <= 9:
+                    return HttpResponse("Time not avaibile xd")
+                else:
                     table = Table.objects.filter(table_size=2).first()
                     post.table = table
                     post.save()
-                    return HttpResponse("Booked")
-
-            #if post.size <= 2:
-             #   table = Table.objects.filter(table_size=2).first()
-              #  post.table = table
-            #elif post.size >= 3:
-             #   table = Table.objects.filter(table_size=4).first()
-              #  post.table = table
-                
-            #check_date = Reservation.objects.filter(book_date=post.date)
-            #check_time = check_date.filter(book_time=post.time)
-            #if check_time.exists():
-             #   return HttpResponse("Time not availible")
-            #else:
-             #   post.save()
-              #  return render(request, 'home.html')
+                    return HttpResponse(f"Booked Bookings before: {get_bookings_before.count()} Bookings After: {get_bookings_after.count()} Time: {time}")
     else: 
         form = MakeReservationForm()
     return render(request, 'reservation/reservation.html', {'form': form})

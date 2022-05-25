@@ -31,7 +31,7 @@ class Reservation(models.Model):
     TIME_CHOICES = [
         (1, '17:30'),
         (2, '17:45'),
-        (3, '18:00'),
+        (3, '18:00'), 
         (4, '18:15'),
         (5, '18:30'),
         (6, '18:45'),
@@ -47,7 +47,7 @@ class Reservation(models.Model):
         (16, '21:15'),
         (17, '21:30'),
         (18, '21:45'),
-        (19, '22:00'),
+        (19, '22:00'), 
     ]
     book_time = models.IntegerField(choices=TIME_CHOICES)
     end_time = models.IntegerField(blank=True)
