@@ -5,11 +5,28 @@
 
 <div class="container">
     <div class="col-md-12">
-        {% for reservation in reservations %}
-        {{ reservation.party_size }}
-        {{ reservation.book_date }}
-        {{ reservation.book_time }}
-        {% endfor %}
+        <table class="table text-white">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Guests</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+              <tr>
+                <td>{{ reservation.user }}</td>
+                <td>{{ reservation.book_date }}</td>
+                <td>{{ reservation.get_book_time_display }}</td>
+                <td>{{ reservation.party_size }}</td>
+                <td><button class="btn btn-primary bg-warning">Edit</button></td>
+                <td><button class="btn btn-primary bg-danger">Delete</button></td>
+              </tr>
+              {% endfor %}
     </div>
     <a href=""></a>
 </div>

@@ -7,6 +7,7 @@ from .models import Reservation, Table
 from django.views import generic, View
 from django.template import RequestContext
 from .availability import CheckAvailability
+from django.contrib import messages
 
 # Create your views here.
 
@@ -37,22 +38,29 @@ def reserve_table(request):
                 book_time__range=(time, bookings_after))
             if post.size <= 2:
                 if get_bookings_before.count() >= 5 or get_bookings_after.count() >= 5 and get_bookings_after.count() + get_bookings_before.count() <= 9:
-                    return HttpResponse("Time not avaibile xd")
+                    messages.error(request, 'Time not avalible')
+                    form = MakeReservationForm()
+                    return render(request, 'reservation/reservation.html', {'form': form})
                 else:
                     tables = Table.objects.filter(table_size=2)
                     for table in tables:
-                        if not Reservation.objects.filter(book_date=post.date, book_time__range=(get_bookings_before.count(), get_bookings_after.count())   ,table=table).exists():
+                        if not Reservation.objects.filter(book_date=post.date, book_time__range=(get_bookings_after.count(), get_bookings_before.count()), table=table).exists():
                             post.table = table
-                    # table = Table.objects.filter(table_size=2).first()
+                        else: 
+                            HttpResponse("Error")
+                    form = MakeReservationForm()
                     post.save()
-                    return HttpResponse(f"Booked Bookings before: {get_bookings_before.count()} Bookings After: {get_bookings_after.count()} Time: {time}")
+                    messages.success(request, 'Booked')
+                    return render(request, 'reservation/reservation.html', {'form': form})
 
             elif post.size >= 4:
                 if get_bookings_before.count() >= 5 or get_bookings_after.count() >= 5 and get_bookings_after.count() + get_bookings_before.count() <= 9:
                     return HttpResponse("Time not avaibile xd")
                 else:
-                    table = Table.objects.filter(table_size=2).first()
-                    post.table = table
+                    tables = Table.objects.filter(table_size=4)
+                    for table in tables:
+                        if not Reservation.objects.filter(book_date=post.date, book_time__range=(get_bookings_before.count(), get_bookings_after.count()), table=table).exists():
+                            post.table = table
                     post.save()
                     return HttpResponse(f"Booked Bookings before: {get_bookings_before.count()} Bookings After: {get_bookings_after.count()} Time: {time}")
     else: 

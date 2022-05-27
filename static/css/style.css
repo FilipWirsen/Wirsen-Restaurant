@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
 html { 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -5,6 +6,26 @@ html {
     background-size: cover;
   }
 
-#test {
-    color:blue;
+body {
+    background: white url("/static/images/background.jpg") no-repeat;
+}
+
+.left, .right {
+  padding-top: 15vh;
+  height: 100vh;
+}
+
+.header {
+  font-size: 55px;
+}
+
+.nav-link{
+  font-size: 30px;
+  font-family: 'Baloo 2', cursive;
+  margin: 5px;
+}
+
+.navbar-brand {
+  font-size: 70px;
+  text-align: center;
 }
