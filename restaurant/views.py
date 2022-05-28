@@ -8,7 +8,7 @@ from .models import Reservation, Table
 
 def home(request):
     return render(request, 'home.html', {})
-    
+
 
 def check_availability(party_size, date, start_time):
     """

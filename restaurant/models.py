@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-import datetime
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -30,6 +29,8 @@ class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     party_size = models.IntegerField()
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    table_two = models.ForeignKey(
+        Table, on_delete=models.CASCADE, blank=True, null=True, related_name='table_two')
     book_date = models.DateField(default=timezone.now)
     TIME_CHOICES = [
         (1050, '17:30'),
