@@ -24,30 +24,33 @@ class Table(models.Model):
 
 
 class Reservation(models.Model):
+    """
+    Model for storing reservations
+    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     party_size = models.IntegerField()
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
     book_date = models.DateField(default=timezone.now)
     TIME_CHOICES = [
-        (1, '17:30'),
-        (2, '17:45'),
-        (3, '18:00'), 
-        (4, '18:15'),
-        (5, '18:30'),
-        (6, '18:45'),
-        (7, '19:00'),
-        (8, '19:15'),
-        (9, '19:30'),
-        (10, '19:45'),
-        (11, '20:00'),
-        (12, '20:15'),
-        (13, '20:30'),
-        (14, '20:45'),
-        (15, '21:00'),
-        (16, '21:15'),
-        (17, '21:30'),
-        (18, '21:45'),
-        (19, '22:00'), 
+        (1050, '17:30'),
+        (1065, '17:45'),
+        (1080, '18:00'), 
+        (1095, '18:15'),
+        (1110, '18:30'), 
+        (1125, '18:45'),
+        (1140, '19:00'), 
+        (1155, '19:15'),
+        (1170, '19:30'),
+        (1185, '19:45'),
+        (1200, '20:00'),
+        (1215, '20:15'),
+        (1230, '20:30'),
+        (1245, '20:45'),
+        (1260, '21:00'),
+        (1275, '21:15'),
+        (1290, '21:30'),
+        (1305, '21:45'),
+        (1320, '22:00'), 
     ]
     book_time = models.IntegerField(choices=TIME_CHOICES)
     end_time = models.IntegerField(blank=True)
